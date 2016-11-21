@@ -17,6 +17,19 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state('home', {
     url: '/',
     templateUrl: 'src/menuapp/templates/home.template.html'
+  })
+
+  // Premade list page
+  .state('mainList', {
+    url: '/main-list',
+    templateUrl: 'src/menuapp/templates/main-menuapp.template.html',
+    controller: 'MainMenuAppController as mainList',
+    resolve: {
+      items: ['MenuDataService', function (MenuDataService) {
+        console.log("state");
+        return MenuDataService.getAllCategories();
+      }]
+    }
   });
 
 }
