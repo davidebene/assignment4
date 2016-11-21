@@ -9,23 +9,22 @@ MenuDataService.$inject = ['$http', '$q', 'ApiBasePath'];
 function MenuDataService($http, $q, ApiBasePath) {
   var service = this;
 
-  console.log("MenuDataService");
-
   service.getAllCategories = function () {
-    console.log("getAllCategories");
+    //console.log("getAllCategories");
     var deferred = $q.defer();
 
     return $http({
       method: "GET",
       url: (ApiBasePath + "/categories.json")
     }).then(function (result) {
-      deferred.resolve(result);
+
+      deferred.resolve(result.data);
       return deferred.promise;
     });
   };
 
-  service.getItemsForCategory() = function (categoryShortName) {
-    console.log("getItemsForCategory");
+  service.getItemsForCategory = function (categoryShortName) {
+    //console.log("getItemsForCategory");
     var deferred = $q.defer();
 
     return $http({
@@ -35,6 +34,7 @@ function MenuDataService($http, $q, ApiBasePath) {
         category: categoryShortName
       }
     }).then(function (result) {
+
       deferred.resolve(result);
       return deferred.promise;
     });

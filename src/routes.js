@@ -20,14 +20,24 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   })
 
   // Premade list page
-  .state('mainList', {
-    url: '/main-list',
+  .state('categories', {
+    url: '/categories',
     templateUrl: 'src/menuapp/templates/main-menuapp.template.html',
     controller: 'MainMenuAppController as mainList',
     resolve: {
       items: ['MenuDataService', function (MenuDataService) {
-        console.log("state");
         return MenuDataService.getAllCategories();
+      }]
+    }
+  })
+
+  .state('items', {
+    url: '/items/{itemShortName}',
+    templateUrl: 'src/menuapp/templates/items.template.html',
+    controller: "ItemDetailController as itemDetail",
+    resolve: {
+      items: ['$stateParams', 'MenuDataService', function ($stateParams,MenuDataService) {
+        return MenuDataService.getItemsForCategory($stateParams.itemShortName);
       }]
     }
   });
